@@ -1,0 +1,76 @@
+{% extends 'portfolio/base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<title>Blog</title>
+
+<head>
+    <style>
+      .centerTwo {
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+          width: 75%;
+      }
+      .container {
+          width: 50%;
+          height: 300px;
+      }
+      img {
+          width: 50%;
+          height: 50%;
+          object-fit: cover;
+    </style>
+</head>
+<body>
+    <h1 class="text-center">Blog page</h1>
+    <hr><br>
+    <img class="centerTwo img-fluid" src="{% static 'portfolio/blogs_picture.jpg' %}" height="100">
+    <br><hr>
+    <!--<div class="text-center">
+    <h2>Anonymous has written {{ blogs.count }} blog{{ blogs.count|pluralize }}.</h2>
+    <hr><br>
+    <div class="row">
+        <div class="col">
+          <br>
+            {% for blog in blogs %}
+            <a class="btn btn-primary" href="{% url 'blog:detail' blog.id %}" role="button"><h5>{{ blog.title }}</h5></a>
+            <h5>{{ blog.date|date:'d M Y' }}</h5>
+            <p>{{ blog.description|safe|truncatechars:50 }}</p>
+
+            <br><img class="img-fluid" src="{{ blog.image.url }}" height="100">
+            {% if blog.url %}
+            <br>{{ blog.url }}
+            {% endif %}
+            <br><br><br><br><br>
+
+            {% endfor %}
+        </div>
+      </div>
+    </div>-->
+
+    <div class="row">
+      {% for blog in blogs %}
+      <div class="col-lg-4 col-md-6">
+
+        {% if blog.url %}
+        <a href="{{ blog.url }}">
+          <img src="{{ blog.image.url }}" class="centerTwo img-fluid mb-2">
+        </a>
+        {% else %}
+
+        <img src="{{ blog.image.url }}" class="centerTwo img-fluid mb-2">
+        {% endif %}
+        <a class="centerTwo btn btn-primary" href="{% url 'blog:detail' blog.id %}" role="button"><h5>{{ blog.title }}</h5></a>
+        <h5 class="centerTwo">{{ blog.description|safe|truncatechars:150 }}</h5>
+          <br>
+
+      </div>
+      {% endfor %}
+    </div>
+
+</body>
+
+{% endblock %}
